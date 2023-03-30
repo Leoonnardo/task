@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task/screen/home_screen.dart';
 import 'package:task/screen/login_screen.dart';
+import 'package:task/screen/new_task_screen.dart';
 import 'package:task/screen/register_screen.dart';
 
 class AppRoutes {
@@ -24,6 +25,12 @@ class AppRoutes {
     appRoutes.addAll({
       'HomeScreen': (BuildContext context) {
         return const HomeScreen();
+      }
+    });
+
+    appRoutes.addAll({
+      'NewTask': (BuildContext context) {
+        return const NewTask();
       }
     });
 

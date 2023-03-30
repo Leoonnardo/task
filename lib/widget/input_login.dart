@@ -2,36 +2,48 @@ import 'package:flutter/material.dart';
 
 import '../color/color_theme.dart';
 
-class InputLogin extends StatelessWidget {
-  const InputLogin({
-    super.key,
-    required this.color,
-    required this.title,
-    required this.titleEnter,
-    required this.icon,
-  });
+class InputGlobalTask extends StatelessWidget {
+  const InputGlobalTask(
+      {super.key,
+      required this.color,
+      this.title,
+      required this.titleEnter,
+      this.icon,
+      this.maxLine,
+      this.widht,
+      this.textInput,
+      this.controller,
+      required this.onChanged});
 
   final ColorPrimary color;
-  final String title;
+  final title;
   final String titleEnter;
-  final IconData icon;
+  final icon;
+  final maxLine;
+  final widht;
+  final textInput;
+  final controller;
+  final void Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: TextStyle(color: color.primary40, fontSize: 14),
-          ),
-          TextField(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title == null ? "" : title,
+          style: TextStyle(color: color.primary40, fontSize: 14),
+        ),
+        SizedBox(
+          width: widht ?? size.width * 0.9,
+          child: TextField(
+            maxLines: maxLine,
+            keyboardType: textInput,
+            controller: controller,
             decoration: InputDecoration(
               focusColor: color.primary40,
-              prefixIcon: Icon(icon),
+              prefixIcon: icon,
               prefixIconColor: color.primary60,
               hintText: titleEnter,
               hintStyle: TextStyle(color: color.primary60, fontSize: 14),
@@ -44,10 +56,10 @@ class InputLogin extends StatelessWidget {
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             ),
-            onChanged: (value) {},
-          )
-        ],
-      ),
+            onChanged: onChanged,
+          ),
+        )
+      ],
     );
   }
 }

@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task/bloc/taskBloc/task_bloc_bloc.dart';
 import 'package:task/router/app_routes.dart';
 import 'package:task/widget/global_text.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const AppState());
+}
+
+class AppState extends StatelessWidget {
+  const AppState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [BlocProvider(
+        create: (_) => TaskBlocBloc())],
+      child: const MyApp()
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {

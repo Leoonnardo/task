@@ -42,21 +42,27 @@ class RegisterScreen extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      InputLogin(
-                          icon: Icons.person_2_outlined,
+                      InputGlobalTask(
+                          icon: const Icon(Icons.person_2_outlined),
                           title: globalText.nameUser,
                           titleEnter: globalText.nameUserEnter,
-                          color: color),
-                      InputLogin(
-                          icon: Icons.lock_outline_rounded,
+                          color: color,onChanged: (p0) {
+                            
+                          },),
+                      InputGlobalTask(
+                          icon: const Icon(Icons.lock_outline_rounded),
                           title: globalText.passwordUser,
                           titleEnter: globalText.passwordUserEnter,
-                          color: color),
-                      InputLogin(
-                          icon: Icons.lock_outline_rounded,
+                          color: color,onChanged: (p0) {
+                            
+                          },),
+                      InputGlobalTask(
+                          icon: const Icon(Icons.lock_outline_rounded),
                           title: globalText.passwordUserCon,
                           titleEnter: globalText.passwordUserEnterCon,
-                          color: color)
+                          color: color,onChanged: (p0) {
+                            
+                          },)
                     ]),
               ),
               Expanded(

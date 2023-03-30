@@ -41,16 +41,20 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      InputLogin(
-                          icon: Icons.person_2_outlined,
-                          title: loginText.nameUser,
-                          titleEnter: loginText.nameUserEnter,
-                          color: color),
-                      InputLogin(
-                          icon: Icons.lock_outline_rounded,
+                      InputGlobalTask(
+                        icon: const Icon(Icons.person_2_outlined),
+                        title: loginText.nameUser,
+                        titleEnter: loginText.nameUserEnter,
+                        color: color,
+                        onChanged: (p0) {},
+                      ),
+                      InputGlobalTask(
+                          icon: const Icon(Icons.lock_outline_rounded),
                           title: loginText.passwordUser,
                           titleEnter: loginText.passwordUserEnter,
-                          color: color)
+                          color: color,onChanged: (p0) {
+                            
+                          },)
                     ]),
               ),
               Expanded(
@@ -83,13 +87,10 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ]),
               ),
-              Expanded(
-                flex: 2,
-                child: ButtonTask(
-                  text: loginText.buttonLogin,
-                  color: color.primary40,
-                  onPressed: () => Navigator.pushNamed(context, "HomeScreen"),
-                ),
+              ButtonTask(
+                text: loginText.buttonLogin,
+                color: color.primary40,
+                onPressed: () => Navigator.pushNamed(context, "HomeScreen"),
               ),
             ],
           ),

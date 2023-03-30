@@ -29,3 +29,16 @@ class RegisterText {
   String newUserClick = "Ingresar con tu cuenta";
   String buttonLogin = "Continuar";
 }
+
+class NewTaskText {
+  String imageText = "Click para abrir galeria";
+  String nameTitle = "Titulo";
+  String nameTitleInput = "Escribe aqui el titulo de tu tarea";
+  String nameDescription = "Descripción";
+  String nameDescriptionInput = "Describe como será tu tarea";
+  String dateTitle = "Fecha";
+  String dayText = "Día";
+  String mounthText = "Mes";
+  String yearText = "Año";
+  String buttonText = "Crear";
+}
