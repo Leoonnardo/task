@@ -6,5 +6,8 @@ class ColorPrimary {
   Color primary60 = const Color(0xFFA3D9E5);
   Color primary90 = const Color(0xFFE0F2F6);
   
+  Color secundary20 = const Color(0xFF997047);
   Color secundary40 = const Color(0xFFFFBA76);
+  Color secundary60 = const Color(0xFFFFD6AD);
+  Color secundary90 = const Color(0xFFFFF1E4);
 }

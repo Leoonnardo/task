@@ -4,10 +4,10 @@ import 'package:path/path.dart';
 
 class DB {
   static Future<Database> _openDB() async {
-    return openDatabase(join(await getDatabasesPath(), "tareas.db"),
+    return openDatabase(join(await getDatabasesPath(), "tareas1.db"),
         onCreate: (db, version) {
       return db.execute(
-          "CREATE TABLE taskUser (idTask INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, title TEXT, description TEXT, status TEXT, dateInitial TEXT, dateFinal TEXT, image TEXT, idUser INTEGER)");
+          "CREATE TABLE taskUser (idTask INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, title TEXT, description TEXT, status TEXT, dateInitial TEXT, dateFinal TEXT, image BLOB, idUser INTEGER)");
     }, version: 1);
   }
 
@@ -27,13 +27,13 @@ class DB {
   static Future<void> delete(Task task) async {
     Database database = await _openDB();
 
-    database.delete("taskUser", where: "idTask = ?, idUser = ?", whereArgs: [task.idTask, task.idUser]);
+    database.delete("taskUser", where: "idTask = ?", whereArgs: [task.idTask]);
   }
 
   static Future<void> update(Task task) async {
     Database database = await _openDB();
 
-    database.update("taskUser", task.toMap(),
+    await database.update("taskUser", task.toMap(),
         where: "idTask = ?", whereArgs: [task.idTask]);
   }
 
@@ -56,6 +56,54 @@ class DB {
           image: tasksMap[i]['image'],
           idUser: tasksMap[i]['idUser'],
         );
+      });
+    } catch (e) {
+      return [];
+    }
+  }
+
+  static Future<List<Task>> tasksPend(Task task) async {
+    Database database = await _openDB();
+    try {
+      print("Entre");
+      final List<Map<String, dynamic>> tasksMap = await database
+          .query("taskUser", where: "idUser = ?", whereArgs: [task.idUser]);
+
+      return List.generate(tasksMap.length, (i) {
+        Task(
+          idTask: tasksMap[i]['idTask'],
+          title: tasksMap[i]['title'],
+          description: tasksMap[i]['description'],
+          status: tasksMap[i]['status'],
+          dateInitial: tasksMap[i]['dateInitial'],
+          dateFinal: tasksMap[i]['dateFinal'],
+          image: tasksMap[i]['image'],
+          idUser: tasksMap[i]['idUser'],
+        );
+        // print(tasksMap);
+        if (tasksMap[i]["status"] == "Pendiente") {
+          return Task(
+            idTask: tasksMap[i]['idTask'],
+            title: tasksMap[i]['title'],
+            description: tasksMap[i]['description'],
+            status: tasksMap[i]['status'],
+            dateInitial: tasksMap[i]['dateInitial'],
+            dateFinal: tasksMap[i]['dateFinal'],
+            image: tasksMap[i]['image'],
+            idUser: tasksMap[i]['idUser'],
+          );
+        } else {
+          return Task(
+            idTask: tasksMap[i]['idTask'],
+            title: tasksMap[i]['title'],
+            description: tasksMap[i]['description'],
+            status: tasksMap[i]['status'],
+            dateInitial: tasksMap[i]['dateInitial'],
+            dateFinal: tasksMap[i]['dateFinal'],
+            image: tasksMap[i]['image'],
+            idUser: tasksMap[i]['idUser'],
+          );
+        }
       });
     } catch (e) {
       return [];

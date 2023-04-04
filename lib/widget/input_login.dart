@@ -11,6 +11,7 @@ class InputGlobalTask extends StatelessWidget {
       this.icon,
       this.maxLine,
       this.widht,
+      this.height,
       this.textInput,
       this.controller,
       required this.onChanged});
@@ -21,6 +22,7 @@ class InputGlobalTask extends StatelessWidget {
   final icon;
   final maxLine;
   final widht;
+  final height;
   final textInput;
   final controller;
   final void Function(String) onChanged;
@@ -37,6 +39,7 @@ class InputGlobalTask extends StatelessWidget {
         ),
         SizedBox(
           width: widht ?? size.width * 0.9,
+          height: height,
           child: TextField(
             maxLines: maxLine,
             keyboardType: textInput,

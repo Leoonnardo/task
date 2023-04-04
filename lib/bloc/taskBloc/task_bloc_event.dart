@@ -6,24 +6,59 @@ abstract class TaskBlocEvent {}
 class ResetTask extends TaskBlocEvent {}
 
 class AddTask extends TaskBlocEvent {
-  final int idTask;
+  final idTask;
   final String title;
   final String description;
   final String status;
   final String dateInitial;
   final String dateFinal;
-  final String image;
-  final int idUser;
+  final Uint8List? image;
+  final idUser;
   final bool edit;
+  final bool editButton;
 
-  AddTask(this.idTask, this.title, this.description, this.status, this.dateInitial,
-      this.dateFinal, this.image, this.idUser, this.edit);
+  AddTask(
+      this.idTask,
+      this.title,
+      this.description,
+      this.status,
+      this.dateInitial,
+      this.dateFinal,
+      this.image,
+      this.idUser,
+      this.edit,
+      this.editButton);
+}
+
+class ClearTask extends TaskBlocEvent {
+  final idTask = null;
+  final String title = "";
+  final String description = "";
+  final String status = "";
+  final String dateInitial = "";
+  final String dateFinal = "";
+  final String image = "";
+  final idUser = null;
+  final bool edit = false;
+  final bool editButton = false;
+
+  ClearTask();
 }
 
 // class AddIdTask extends TaskBlocEvent {
 //   final String idTask;
 //   AddIdTask(this.idTask);
 // }
+class EditStatus extends TaskBlocEvent {
+  final int idTask;
+  final bool edit;
+  final bool editButton;
+  final String status;
+  final String dateFinal;
+  final int idUser;
+  EditStatus(
+      this.idTask, this.edit, this.editButton, this.status, this.dateFinal, this.idUser);
+}
 
 class AddTitle extends TaskBlocEvent {
   final String title;

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task/color/color_theme.dart';
@@ -6,14 +8,20 @@ import 'package:task/model/task_data.dart';
 import 'package:task/widget/text_font.dart';
 
 import '../bloc/taskBloc/task_bloc_bloc.dart';
+import '../screen/home_screen.dart';
 
 class CardTask extends StatelessWidget {
   const CardTask(
-      {super.key, required this.size, required this.color, required this.task});
+      {super.key,
+      required this.size,
+      required this.color,
+      required this.task,
+      required this.status});
 
   final Size size;
   final ColorPrimary color;
   final Task task;
+  final bool status;
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +62,9 @@ class CardTask extends StatelessWidget {
                     flex: 4,
                     child: Center(
                       child: ListTile(
-                        leading: const CircleAvatar(
+                        leading: CircleAvatar(
                           maxRadius: 25,
-                          backgroundImage: AssetImage("assets/images/user.jpg"),
+                          backgroundImage: MemoryImage(task.image),
                         ),
                         title: TextFont(
                           text: task.title,
@@ -91,8 +99,9 @@ class CardTask extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                         trailing: TextFont(
-                          text: "",
-                          // "${task.dateInitial.substring(0, 2)}/${task.dateInitial.substring(3, 6)}/${task.dateInitial.substring(7, 11)}",
+                          // text: "${task.dateInitial}",
+                          text:
+                              "${task.dateInitial.substring(0, 2)}/${getMonth(int.parse(task.dateInitial.substring(3, 5)))}/${task.dateInitial.substring(6, 10)}",
                           color: color.primary20,
                           font: 15,
                           fontWeight: FontWeight.w700,
@@ -103,6 +112,7 @@ class CardTask extends StatelessWidget {
             ),
           ),
           onTap: () async {
+            clearBloc(taskBloc);
             taskBloc.add(AddTask(
                 task.idTask,
                 task.title,
@@ -112,8 +122,11 @@ class CardTask extends StatelessWidget {
                 task.dateFinal,
                 task.image,
                 task.idUser,
+                true,
                 true));
-            Navigator.pushNamed(context, "NewTask");
+            !status
+                ? Navigator.popAndPushNamed(context, "NewTask")
+                : Navigator.popAndPushNamed(context, "CompleteTask");
           },
         ),
         confirmDismiss: (direction) async {
@@ -131,6 +144,7 @@ class CardTask extends StatelessWidget {
                           await DB.delete(task);
                           delete = true;
                           Navigator.pop(context);
+                          Navigator.popAndPushNamed(context, "HomeScreen");
                         },
                         child: Text("Si"),
                       ),
@@ -150,9 +164,13 @@ class CardTask extends StatelessWidget {
               return true;
             }
           }
-          // return false;
+          return false;
         },
       ),
     );
   }
+}
+
+void clearBloc(taskBloc) {
+  taskBloc.add(AddTask(null, "", "", "", "", "", null, null, false, false));
 }

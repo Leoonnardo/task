@@ -3,6 +3,7 @@ import 'package:task/screen/home_screen.dart';
 import 'package:task/screen/login_screen.dart';
 import 'package:task/screen/new_task_screen.dart';
 import 'package:task/screen/register_screen.dart';
+import 'package:task/screen/task_complete_screen.dart';
 
 class AppRoutes {
   static const initialRoute = "HomeScreen";
@@ -31,6 +32,12 @@ class AppRoutes {
     appRoutes.addAll({
       'NewTask': (BuildContext context) {
         return const NewTask();
+      }
+    });
+
+    appRoutes.addAll({
+      'CompleteTask': (BuildContext context) {
+        return const TaskComplete();
       }
     });
 

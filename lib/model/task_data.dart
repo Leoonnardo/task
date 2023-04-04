@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 class Task {
   final idTask;
   String title;
@@ -5,7 +8,7 @@ class Task {
   String status;
   String dateInitial;
   String dateFinal;
-  String image;
+  Uint8List image;
   int idUser;
 
   Task({

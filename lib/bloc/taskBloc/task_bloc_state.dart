@@ -10,9 +10,10 @@ class TaskBlocState {
   final String year;
   final String dateInitial;
   final String dateFinal;
-  final String image;
+  final Uint8List? image;
   final idUser;
   final bool edit;
+  final bool editButton;
 
   TaskBlocState(
       {this.idTask,
@@ -24,7 +25,8 @@ class TaskBlocState {
       this.year = "",
       this.dateInitial = "",
       this.dateFinal = "",
-      this.image = "",
+      this.image,
       this.idUser,
-      this.edit = false});
+      this.edit = false,
+      this.editButton = false});
 }

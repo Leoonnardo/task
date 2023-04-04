@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:task/screen/new_task_screen.dart';
@@ -19,7 +22,16 @@ class TaskBlocBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
             dateFinal: event.dateFinal,
             image: event.image,
             idUser: event.idUser,
-            edit: event.edit));
+            edit: event.edit,
+            editButton: event.editButton));
+      } else if (event is EditStatus) {
+        emit.call(TaskBlocState(
+            idTask: event.idTask,
+            edit: event.edit,
+            editButton: event.editButton,
+            status: event.status,
+            dateFinal: event.dateFinal,
+            idUser: event.idUser));
       }
     });
   }

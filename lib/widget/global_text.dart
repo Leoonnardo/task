@@ -37,8 +37,11 @@ class NewTaskText {
   String nameDescription = "Descripción";
   String nameDescriptionInput = "Describe como será tu tarea";
   String dateTitle = "Fecha";
+  String dateFinalTitle = "Fecha de término";
   String dayText = "Día";
   String mounthText = "Mes";
   String yearText = "Año";
   String buttonText = "Crear";
+  String buttonTextUpdate = "Actualizar";
+  String buttonTextEdit = "Completar Tarea";
 }
