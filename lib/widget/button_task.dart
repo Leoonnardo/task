@@ -8,10 +8,16 @@ class ButtonTask extends StatelessWidget {
     required this.color,
     this.icon,
     required this.onPressed,
+    this.width,
+    this.height,
+    this.colorBorder,
   });
 
   final String text;
   final Color color;
+  final Color? colorBorder;
+  final double? width;
+  final double? height;
   final icon;
   final void Function() onPressed;
 
@@ -21,13 +27,13 @@ class ButtonTask extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(bottom: size.height * 0.03),
-      child: Container(
-        width: size.width * 0.9,
-        height: size.height * 0.07,
+      child: SizedBox(
+        width: width != null ? size.width * width! : size.width * 0.9,
+        height: height != null ? size.height * height! : size.height * 0.07,
         child: MaterialButton(
             shape: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: color)),
+                borderSide: BorderSide(color: colorBorder ?? color)),
             color: color,
             onPressed: onPressed,
             child: Row(
@@ -40,7 +46,7 @@ class ButtonTask extends StatelessWidget {
                         child: icon,
                       ),
                 TextFont(
-                  color: Colors.white,
+                  color: colorBorder != null ? colorBorder! : Colors.white,
                   font: 20,
                   text: text,
                 ),

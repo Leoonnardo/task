@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task/color/color_theme.dart';
 import 'package:task/controller/task_db.dart';
 import 'package:task/model/task_data.dart';
+import 'package:task/widget/button_task.dart';
+import 'package:task/widget/global_text.dart';
 import 'package:task/widget/text_font.dart';
 
 import '../bloc/taskBloc/task_bloc_bloc.dart';
@@ -26,6 +28,7 @@ class CardTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskBloc = BlocProvider.of<TaskBlocBloc>(context);
+    final globalText = AlertText();
     print(task.idTask);
     return Padding(
       padding: EdgeInsets.only(
@@ -136,24 +139,56 @@ class CardTask extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text("¿Seguro que quieres el?"),
-                    actionsAlignment: MainAxisAlignment.spaceEvenly,
-                    actions: [
-                      MaterialButton(
-                        onPressed: () async {
-                          await DB.delete(task);
-                          delete = true;
-                          Navigator.pop(context);
-                          Navigator.popAndPushNamed(context, "HomeScreen");
-                        },
-                        child: Text("Si"),
+                    backgroundColor: color.primary90,
+                    title: Text(
+                      globalText.title,
+                      style: TextStyle(
+                        color: color.primary20,
                       ),
-                      MaterialButton(
-                        onPressed: () {
-                          delete = false;
-                          Navigator.pop(context);
-                        },
-                        child: Text("No"),
+                      textAlign: TextAlign.center,
+                    ),
+                    actionsAlignment: MainAxisAlignment.start,
+                    actions: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: Text(
+                              globalText.description,
+                              style: TextStyle(
+                                  fontSize: 16, color: color.primary40),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ButtonTask(
+                                  height: 0.05,
+                                  width: 0.3,
+                                  text: globalText.no,
+                                  colorBorder: color.secundary40,
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    delete = false;
+                                    Navigator.pop(context);
+                                  }),
+                              ButtonTask(
+                                  height: 0.05,
+                                  width: 0.3,
+                                  text: globalText.yes,
+                                  color: color.primary40,
+                                  onPressed: () async {
+                                    await DB.delete(task);
+                                    delete = true;
+                                    Navigator.pop(context);
+                                    Navigator.popAndPushNamed(
+                                        context, "HomeScreen");
+                                  }),
+                            ],
+                          )
+                        ],
                       )
                     ],
                   );

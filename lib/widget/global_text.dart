@@ -45,3 +45,10 @@ class NewTaskText {
   String buttonTextUpdate = "Actualizar";
   String buttonTextEdit = "Completar Tarea";
 }
+
+class AlertText {
+  String title = "¿Seguro que quieres eliminar esta tarea?";
+  String description = "No podras recuperar las tareas eliminadas";
+  String yes = "Sí";
+  String no = "No";
+}
